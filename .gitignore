@@ -1,0 +1,8 @@
+.DS_Store
+.env
+.env.*
+__pycache__/
+# Berkas taksonomi Personal-OS, tidak ikut repo publik.
+AGENTS.md
+CLAUDE.md
+STATUS.md
