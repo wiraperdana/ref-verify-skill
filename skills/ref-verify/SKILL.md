@@ -22,6 +22,7 @@ Resolve from the request (ask only if genuinely missing):
    - When a Q1/Q2 source from another publisher supports the same claim, prefer that source.
    - For any Hindawi article, check retraction status first (publisher notice, Crossref `update-to`/`relation` fields, Retraction Watch database). The 2023 mass retractions make this a real per-article risk. A retracted article is never cited as support.
    - Never propose these publishers as a target venue for the user's own submissions.
+   - The list is about choosing a venue to publish in. Bring it up only when the user is choosing one. In verification reports, record the publisher's name instead of labelling a source by list membership ("not MDPI" tells the reader nothing and wrongly implies the list governs citing).
 3. **Quality ladder**: prefer Q1/Q2 journals; top-tier CS conferences (NeurIPS, ICML, ICLR, ACL, EMNLP, NAACL, AAAI, and equivalents) count as Q1-equivalent; still prefer a Q1/Q2 journal when both exist.
 4. Never edit files or passages the user's workspace instructions mark as frozen (for example archived drafts or provenance statements). If unsure whether a file is frozen, ask.
 5. No em dash in any text you write.
@@ -39,7 +40,12 @@ Fetch `https://api.crossref.org/works/<DOI>` (WebFetch) or resolve `https://doi.
 ### Step 3: Classify the venue
 - Journal: check quartile at Scimago (`https://www.scimagojr.com/journalsearch.php?q=<name>`). Record "Q1/Q2/Q3/Q4 (Scimago, <year>)".
 - Conference: check membership in the top-tier list above.
-- Record the publisher. If it is MDPI, Frontiers, or Hindawi, apply hard rule 2 (prefer an equivalent Q1/Q2 source from another publisher; for Hindawi, record the retraction check).
+- Record the publisher **by name**: the `publisher` field of the Crossref or DataCite record, or the issuing body for documents without a DOI (legislation, court decisions, institutional reports, news). Apply hard rule 2 when relevant: prefer an equivalent Q1/Q2 source from another publisher, and treat the retraction check below as mandatory for Hindawi.
+- Record the retraction status. A publisher that retracts or corrects an article links the notice to the original record through the Crossref `update-to` and `relation` fields. Report exactly one of:
+  - `none recorded (Crossref)`: the Crossref record carries no such link.
+  - `retracted` or `corrected: <notice>`: a notice exists. A retracted article is never cited as support.
+  - `not applicable`: legislation, court decisions, institutional reports, news.
+  - `not checked (<reason>)`: DataCite DOI, preprint, or no DOI. Never report a source as clean when you could not check it.
 
 ### Step 4: Confirm the source supports the claim
 Read at least the abstract (full text when reachable). The specific sentence in the manuscript must be something this source actually states or shows. If the source says something adjacent but not that, either soften the manuscript sentence (say so) or find a better source. This is the citation-misattribution check; treat it as mandatory, not optional.
@@ -52,8 +58,8 @@ Read at least the abstract (full text when reachable). The specific sentence in 
 ### Step 6: Report
 End with one verification table for the batch:
 
-| Ref | DOI live | Metadata match | Venue class (evidence) | Publisher check | Supports claim | Action |
-|---|---|---|---|---|---|---|
+| Ref | DOI live | Metadata match | Venue class (evidence) | Publisher | Retraction status | Supports claim | Action |
+|---|---|---|---|---|---|---|---|
 
 Every row must be filled from checks you actually ran this session. Below the table, list anything left `[UNVERIFIED]` and what decision you need from the user, as numbered options.
 
